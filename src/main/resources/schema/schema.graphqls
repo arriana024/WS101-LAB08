@@ -1,35 +1,45 @@
-# Define the Student object type (similar to your Java model)
+# Defines the core Student object type for output
 type Student {
-    id: ID! # ID is a special GraphQL scalar type for unique identifiers (required)
+    id: ID!
     firstName: String!
     lastName: String!
     email: String!
-    course: String
+    course: String!
 }
 
-# Define the Query type, which lists all available read operations
-type Query {
-    # Fetches a list of all students
-    findAllStudents: [Student!]!
-
-    # Fetches a single student by ID
-    findStudentById(id: ID!): Student
-}
-
-# Define the Mutation type, which lists all available write operations (CUD)
-type Mutation {
-    # Creates a new student. Takes an input object for structured data.
-    createStudent(newStudent: StudentInput!): Student!
-
-    # Deletes a student by ID
-    deleteStudent(id: ID!): Boolean!
-}
-
-# Define the Input type for creating a new student.
-# Inputs are necessary for Mutation arguments. ID is optional for creation.
+# Input type for creating a new Student (omitting ID as it's generated)
 input StudentInput {
     firstName: String!
     lastName: String!
     email: String!
+    course: String!
+}
+
+# Input type for updating an existing Student
+input StudentUpdateInput {
+    firstName: String
+    lastName: String
+    email: String
     course: String
+}
+
+# Defines the root query types (read operations)
+type Query {
+    # Fetches all students
+    allStudents: [Student!]!
+
+    # Fetches a single student by ID
+    studentById(id: ID!): Student
+}
+
+# Defines the root mutation types (write operations)
+type Mutation {
+    # Creates a new student. Returns the newly created student.
+    addStudent(student: StudentInput!): Student!
+
+    # Updates an existing student. Returns the updated student if found, otherwise null.
+    updateStudent(id: ID!, student: StudentUpdateInput!): Student
+
+    # Deletes a student by ID. Returns a boolean indicating success.
+    deleteStudent(id: ID!): Boolean!
 }
