@@ -1,0 +1,35 @@
+# Define the Student object type (similar to your Java model)
+type Student {
+    id: ID! # ID is a special GraphQL scalar type for unique identifiers (required)
+    firstName: String!
+    lastName: String!
+    email: String!
+    course: String
+}
+
+# Define the Query type, which lists all available read operations
+type Query {
+    # Fetches a list of all students
+    findAllStudents: [Student!]!
+
+    # Fetches a single student by ID
+    findStudentById(id: ID!): Student
+}
+
+# Define the Mutation type, which lists all available write operations (CUD)
+type Mutation {
+    # Creates a new student. Takes an input object for structured data.
+    createStudent(newStudent: StudentInput!): Student!
+
+    # Deletes a student by ID
+    deleteStudent(id: ID!): Boolean!
+}
+
+# Define the Input type for creating a new student.
+# Inputs are necessary for Mutation arguments. ID is optional for creation.
+input StudentInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    course: String
+}
