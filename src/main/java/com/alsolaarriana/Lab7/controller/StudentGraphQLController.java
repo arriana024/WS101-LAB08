@@ -13,7 +13,7 @@ import java.util.Optional;
 
 /**
  * GraphQL Controller (Data Fetcher) for Student entity.
- * This maps the fields defined in schema.graphqls to methods in the service layer.
+ * This maps the fields defined in schema.graphql to methods in the service layer.
  */
 @Controller
 public class StudentGraphQLController {
